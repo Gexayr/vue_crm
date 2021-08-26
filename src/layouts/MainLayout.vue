@@ -38,6 +38,17 @@ export default {
   },
   components: {
     Navbar, Sidebar
+  },
+  computed: {
+    error() {
+      return this.$store.getters.error
+    }
+  },
+  watch: {
+    error(fbError) {
+      console.log(fbError);
+      this.$error(fbError.message || 'something went wrong')
+    }
   }
 }
 </script>
