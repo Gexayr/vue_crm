@@ -25,15 +25,15 @@ const routes = [
     component: () => import('@/views/Categories.vue')
   },
   {
-    path: '/detail',
+    path: '/detail/:id',
     name: 'detail',
-    meta: {layout: 'main'},
+    meta: {layout: 'main', auth: true},
     component: () => import('@/views/Detail.vue')
   },
   {
     path: '/history',
     name: 'history',
-    meta: {layout: 'main'},
+    meta: {layout: 'main', auth: true},
     component: () => import('@/views/History.vue')
   },
   {
