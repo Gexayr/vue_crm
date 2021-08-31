@@ -1,24 +1,98 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Профиль</h3>
+      <h3>{{ 'ProfileTitle' | localize }}</h3>
     </div>
 
-    <form class="form">
+    <Loader v-if="loading" />
+
+    <form class="form" @submit.prevent="submitHandler" v-else>
       <div class="input-field">
         <input
             id="description"
             type="text"
+            v-model="name"
+            :class="{invalid: $v.name.$dirty && !$v.name.required}"
+
         >
-        <label for="description">Имя</label>
-        <span
-            class="helper-text invalid">name</span>
+        <label for="description">{{ 'name' | localize }}</label>
+        <small
+            class="helper-text invalid $v.email.required"
+            v-if="$v.name.$dirty && !$v.name.required">
+          {{"val_name_empty" | localize}}</small>
+      </div>
+
+      <div class="switch">
+        <label>
+          English
+          <input type="checkbox" v-model="isRuLocale">
+          <span class="lever"></span>
+          Русский
+        </label>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        Обновить
+        {{"update"|localize}}
         <i class="material-icons right">send</i>
       </button>
     </form>
   </div>
 </template>
+
+<style scoped>
+  .switch{
+    margin-bottom: 2rem;
+  }
+</style>
+
+<script>
+import {mapGetters, mapActions } from "vuex";
+import M from "materialize-css";
+import { required } from "vuelidate/lib/validators";
+export default {
+  data: () => ({
+    name: '',
+    loading: true,
+    isRuLocale: true
+  }),
+  validations: {
+    name: { required },
+  },
+  mounted() {
+    this.loading = false
+    this.name = this.info.name
+    this.isRuLocale = this.info.locale === 'ru-RU'
+
+    setTimeout(() => {
+      M.updateTextFields()
+    })
+
+  },
+  computed: {
+    ...mapGetters(['info'])
+  },
+  methods: {
+    ...mapActions(['updateInfo']),
+    async submitHandler() {
+      if (this.$v.$invalid) {
+        this.$v.$touch()
+        return
+      }
+      this.loading = true
+      try {
+        await this.updateInfo({
+          name: this.name,
+          locale: this.isRuLocale ? 'ru-RU' : 'en-US'
+        })
+        this.loading = false
+
+        setTimeout(() => {
+          M.updateTextFields()
+        })
+      } catch (e) {
+        console.log(e.messages());
+      }
+    }
+  }
+}
+</script>

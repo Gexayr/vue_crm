@@ -1,0 +1,11 @@
+{
+  "ProfileTitle": "Профиль",
+  "val_name_empty" : "Имя не может быть пустым!",
+  "update" : "Обновить",
+  "name" : "Имя",
+  "menu_count" :  "Счет",
+  "menu_history" :  "История",
+  "menu_planning" : "Планирование",
+  "menu_record" :  "Новая запись",
+  "menu_categories" : "Категории"
+}

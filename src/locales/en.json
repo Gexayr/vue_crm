@@ -1,0 +1,11 @@
+{
+  "ProfileTitle": "Profile",
+  "val_name_empty" : "Name can't be empty",
+  "update" : "Update",
+  "name" : "Name",
+  "menu_count" :  "Count",
+  "menu_history" :  "History",
+  "menu_planning" : "Planning",
+  "menu_record" :  "Record",
+  "menu_categories" : "Categories"
+}
