@@ -46,10 +46,16 @@
 </style>
 
 <script>
+import localizeFilter from "../filters/localize.filter";
 import {mapGetters, mapActions } from "vuex";
 import M from "materialize-css";
 import { required } from "vuelidate/lib/validators";
 export default {
+  metaInfo() {
+    return {
+      title: localizeFilter("ProfileTitle")
+    }
+  },
   data: () => ({
     name: '',
     loading: true,
